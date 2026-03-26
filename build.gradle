@@ -10,16 +10,21 @@ repositories {
 }
 
 dependencies {
-    implementation 'org.hibernate.orm:hibernate-core:6.4.4.Final'
-    implementation 'org.postgresql:postgresql:42.7.2'
-    implementation 'org.slf4j:slf4j-api:2.0.12'
-    implementation 'ch.qos.logback:logback-classic:1.5.3'
+    // hibernate
+    implementation 'org.hibernate:hibernate-core:6.3.1.Final'
+    // PostgreSQL JDBC Driver
+    runtimeOnly 'org.postgresql:postgresql:42.7.10'
+    // Lombok
+    compileOnly 'org.projectlombok:lombok:1.18.34'
+    annotationProcessor 'org.projectlombok:lombok:1.18.34'
+    // SLF4J API
+    implementation 'org.slf4j:slf4j-api:2.0.9'
+    // Logback - реализация логгера
+    implementation 'ch.qos.logback:logback-classic:1.4.11'
+
     testImplementation platform('org.junit:junit-bom:5.10.0')
     testImplementation 'org.junit.jupiter:junit-jupiter'
     testRuntimeOnly 'org.junit.platform:junit-platform-launcher'
-    compileOnly 'jakarta.persistence:jakarta.persistence-api:3.1.0'
-    compileOnly 'org.projectlombok:lombok:1.18.30'
-    annotationProcessor 'org.projectlombok:lombok:1.18.30'
 }
 
 test {
