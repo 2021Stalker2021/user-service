@@ -12,7 +12,7 @@
     <property name="show_sql">true</property>
     <property name="format_sql">true</property>
 
-    <mapping class="io.gsc.entity.User"/>
+    <mapping class="io.gsc.entity.UserEntity"/>
 
 
     <!-- DB schema will be updated if needed -->

@@ -2,7 +2,7 @@ package io.gsc;
 
 import io.gsc.dao.UserDao;
 import io.gsc.dao.UserDaoImpl;
-import io.gsc.entity.User;
+import io.gsc.entity.UserEntity;
 import org.hibernate.SessionFactory;
 import org.hibernate.cfg.Configuration;
 
@@ -30,7 +30,7 @@ public class UserApplication {
                             System.out.print("Имя: "); String name = scanner.nextLine();
                             System.out.print("Email: "); String email = scanner.nextLine();
                             System.out.print("Возраст: "); int age = Integer.parseInt(scanner.nextLine());
-                            userDao.save(User.builder().name(name).email(email).age(age).build());
+                            userDao.save(UserEntity.builder().name(name).email(email).age(age).build());
                         }
                         case "2" -> {
                             System.out.print("ID: "); Long id = Long.parseLong(scanner.nextLine());
@@ -39,9 +39,9 @@ public class UserApplication {
                         case "3" -> userDao.findAll().forEach(System.out::println);
                         case "4" -> {
                             System.out.print("ID: "); Long id = Long.parseLong(scanner.nextLine());
-                            userDao.findById(id).ifPresent(user -> {
-                                System.out.print("Новое имя: "); user.setName(scanner.nextLine());
-                                userDao.update(user);
+                            userDao.findById(id).ifPresent(userEntity -> {
+                                System.out.print("Новое имя: "); userEntity.setName(scanner.nextLine());
+                                userDao.update(userEntity);
                             });
                         }
                         case "5" -> {

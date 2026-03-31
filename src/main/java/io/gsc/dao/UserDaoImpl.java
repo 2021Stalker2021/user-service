@@ -1,6 +1,6 @@
 package io.gsc.dao;
 
-import io.gsc.entity.User;
+import io.gsc.entity.UserEntity;
 import lombok.RequiredArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
 import org.hibernate.Session;
@@ -19,33 +19,33 @@ public class UserDaoImpl implements UserDao {
     private final SessionFactory sessionFactory;
 
     @Override
-    public void save(User user) {
-        executeInTransaction(session -> session.persist(user));
-        log.info("Пользователь успешно сохранен: {}", user.getEmail());
+    public void save(UserEntity userEntity) {
+        executeInTransaction(session -> session.persist(userEntity));
+        log.info("Пользователь успешно сохранен: {}", userEntity.getEmail());
     }
 
     @Override
-    public Optional<User> findById(Long id) {
-        return execute(session -> Optional.ofNullable(session.get(User.class, id)));
+    public Optional<UserEntity> findById(Long id) {
+        return execute(session -> Optional.ofNullable(session.get(UserEntity.class, id)));
     }
 
     @Override
-    public List<User> findAll() {
-        return execute(session -> session.createQuery("from User", User.class).list());
+    public List<UserEntity> findAll() {
+        return execute(session -> session.createQuery("from UserEntity", UserEntity.class).list());
     }
 
     @Override
-    public void update(User user) {
-        executeInTransaction(session -> session.merge(user));
-        log.info("Пользователь с ID {} обновлен", user.getId());
+    public void update(UserEntity userEntity) {
+        executeInTransaction(session -> session.merge(userEntity));
+        log.info("Пользователь с ID {} обновлен", userEntity.getId());
     }
 
     @Override
     public void delete(Long id) {
         executeInTransaction(session -> {
-            User user = session.get(User.class, id);
-            if (user != null) {
-                session.remove(user);
+            UserEntity userEntity = session.get(UserEntity.class, id);
+            if (userEntity != null) {
+                session.remove(userEntity);
                 log.info("Пользователь с ID {} удален", id);
             } else {
                 log.warn("Удаление невозможно: пользователь с ID {} не найден", id);
