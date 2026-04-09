@@ -10,7 +10,8 @@ import org.mockito.Mock;
 import org.mockito.junit.jupiter.MockitoExtension;
 
 import static org.junit.Assert.assertThrows;
-import static org.mockito.Mockito.*;
+import static org.mockito.Mockito.verify;
+import static org.mockito.Mockito.verifyNoMoreInteractions;
 
 @ExtendWith(MockitoExtension.class)
 class UserServiceTest {
@@ -30,7 +31,7 @@ class UserServiceTest {
 
         userService.registerUser(user);
 
-        verify(userDao, times(1)).save(user);
+        verify(userDao).save(user);
     }
 
     @Test
