@@ -10,18 +10,23 @@ repositories {
 }
 
 dependencies {
-    // hibernate
+    // Hibernate & DB
     implementation "org.hibernate:hibernate-core:${hibernateVersion}"
-    // PostgreSQL JDBC Driver
     runtimeOnly "org.postgresql:postgresql:${postgresqlVersion}"
+
     // Lombok
     compileOnly "org.projectlombok:lombok:${lombokVersion}"
     annotationProcessor "org.projectlombok:lombok:${lombokVersion}"
-    // SLF4J API
+
+    // Logging
     implementation "org.slf4j:slf4j-api:${slf4jVersion}"
-    // Logback - реализация логгера
     implementation "ch.qos.logback:logback-classic:${logbackVersion}"
 
+    // Testing
+    testImplementation "org.testcontainers:junit-jupiter:${testcontainersVersion}"
+    testImplementation "org.testcontainers:postgresql:${testcontainersVersion}"
+    testImplementation "org.mockito:mockito-core:${mockitoVersion}"
+    testImplementation "org.mockito:mockito-junit-jupiter:${mockitoVersion}"
     testImplementation platform("org.junit:junit-bom:${junitVersion}")
     testImplementation 'org.junit.jupiter:junit-jupiter'
     testRuntimeOnly 'org.junit.platform:junit-platform-launcher'
