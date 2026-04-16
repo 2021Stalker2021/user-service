@@ -33,7 +33,7 @@ public class CommonControllerAdvice {
         logStackTrace(ex);
 
         return ResponseEntity
-                .status(HttpStatus.CONFLICT) // 409
+                .status(HttpStatus.CONFLICT)
                 .body(ex.getMessage());
     }
 

@@ -7,6 +7,7 @@ import io.gsc.model.exception.DataExistException;
 import io.gsc.model.exception.NotFoundException;
 import io.gsc.model.request.NewUserRequest;
 import io.gsc.model.request.UpdateUserRequest;
+import io.gsc.producer.KafkaUserProducer;
 import io.gsc.repository.UserRepository;
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
@@ -21,12 +22,7 @@ import java.util.Optional;
 import static org.assertj.core.api.Assertions.assertThatThrownBy;
 import static org.junit.jupiter.api.Assertions.assertEquals;
 import static org.junit.jupiter.api.Assertions.assertNotNull;
-import static org.mockito.Mockito.any;
-import static org.mockito.Mockito.anyLong;
-import static org.mockito.Mockito.never;
-import static org.mockito.Mockito.verify;
-import static org.mockito.Mockito.verifyNoInteractions;
-import static org.mockito.Mockito.when;
+import static org.mockito.Mockito.*;
 
 @ExtendWith(MockitoExtension.class)
 @TestInstance(TestInstance.Lifecycle.PER_METHOD)
@@ -37,6 +33,9 @@ class UserServiceImplTest {
 
     @Mock
     private UserMapper userMapper;
+
+    @Mock
+    private KafkaUserProducer kafkaUserProducer;
 
     @InjectMocks
     private UserServiceImpl userService;
@@ -94,6 +93,7 @@ class UserServiceImplTest {
 
         assertNotNull(result);
         verify(userRepository).save(any(UserEntity.class));
+        verify(kafkaUserProducer, times(1)).sendMessage(any());
     }
 
     @Test
@@ -140,6 +140,7 @@ class UserServiceImplTest {
 
         verify(userRepository).findById(1L);
         verify(userRepository).deleteById(1L);
+        verify(kafkaUserProducer, times(1)).sendMessage(any());
     }
 
     @Test
