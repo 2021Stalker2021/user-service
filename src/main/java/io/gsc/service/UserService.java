@@ -1,23 +1,16 @@
 package io.gsc.service;
 
-import io.gsc.dao.UserDao;
-import io.gsc.entity.UserEntity;
-import lombok.RequiredArgsConstructor;
+import io.gsc.model.dto.UserDTO;
+import io.gsc.model.request.NewUserRequest;
+import io.gsc.model.request.UpdateUserRequest;
+import jakarta.validation.constraints.NotNull;
 
-import java.util.Optional;
+public interface UserService {
+    UserDTO getById(@NotNull Long userId);
 
-@RequiredArgsConstructor
-public class UserService {
-    private final UserDao userDao;
+    UserDTO createUser(@NotNull NewUserRequest newUserRequest);
 
-    public void registerUser(UserEntity user) {
-        if (user.getEmail() == null || !user.getEmail().contains("@")) {
-            throw new IllegalArgumentException("Invalid email");
-        }
-        userDao.save(user);
-    }
+    UserDTO updateUser(@NotNull Long userId, @NotNull UpdateUserRequest request);
 
-    public Optional<UserEntity> getUser(Long id) {
-        return userDao.findById(id);
-    }
+    void delete(Long userId);
 }
